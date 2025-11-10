@@ -1,9 +1,9 @@
 const cacheName = "CMGame-Screw Puzzle Game 3D-1.0.1";
 const contentToCache = [
     "Build/screwpin3d.loader.js",
-    "Build/screwpin3d.framework.js.gz",
-    "Build/screwpin3d.data.gz",
-    "Build/screwpin3d.wasm.gz",
+    "Build/screwpin3d.framework.js",
+    "Build/screwpin3d.data",
+    "Build/screwpin3d.wasm",
     "TemplateData/style.css"
 
 ];
