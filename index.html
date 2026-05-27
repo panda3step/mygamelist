@@ -1,116 +1,156 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#000000">
-    <meta name="description" content="Web site created using CloudBase Webify">
+    <meta name="description" content="老王的游戏导航页">
     <title>老王游戏主页</title>
     <style>
         body {
             margin: 0;
+            padding: 0;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
                 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
                 sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-        }
-
-        code {
-            font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-                monospace;
+            background-color: #121212; /* 换成酷炫的暗黑背景，适合游戏 */
+            color: #ffffff;
         }
 
         .App {
             text-align: center;
-            /* background-color: #efefef; */
-        }
-
-        .App-logo {
-            height: 30vmin;
-            /* pointer-events: none; */
-        }
-
-        @media (prefers-reduced-motion: no-preference) {
-            .App-logo {
-                animation: App-logo-spin infinite 20s linear;
-            }
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .App-header {
-            /* background-color: #efefef; */
-            /* min-height: 00vh; */  
-            /* display: flex; */
+            margin-bottom: 40px;
+        }
+
+        .App-title {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #ff416c, #ff4b2b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .App-subtitle {
+            color: #888;
+            font-size: 1rem;
+        }
+
+        /* 游戏九宫格网格布局 */
+        .Game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 25px;
+            padding: 20px 0;
+        }
+
+        /* 游戏卡片样式 */
+        .Game-card {
+            background-color: #1e1e1e;
+            border-radius: 12px;
+            padding: 30px 20px;
+            text-decoration: none;
+            color: #ffffff;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            border: 1px solid #2a2a2a;
+            display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-size: calc(10px + 2vmin);
-            color: black;
         }
 
-        .App-link {
-            color: #108ee9;
+        /* 鼠标悬停动效 */
+        .Game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(255, 75, 43, 0.2);
+            border-color: #ff4b2b;
+            background-color: #252525;
         }
-        
+
+        .Game-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .Game-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        /* 手机端适配调整 */
+        @media (max-width: 480px) {
+            .App-title { font-size: 2rem; }
+            .Game-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; }
+            .Game-card { padding: 20px 10px; }
+            .Game-name { font-size: 1rem; }
+        }
     </style>
-
-
-    <!-- <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
-    <script>
-        window.googletag = window.googletag || { cmd: [] };
-        googletag.cmd.push(function () {
-            googletag.defineSlot('/23001303080/sequone.com/sequone.com-300x250-index-01-071201', [300, 250], 'div-gpt-ad-1720771761394967-0').addService(googletag.pubads());
-            googletag.pubads().collapseEmptyDivs();
-            googletag.enableServices();
-        });
-    </script> -->
 </head>
 
 <body>
-    <!-- /23001303080/sequone.com/sequone.com-300x250-index-01-071201 -->
-    <!-- <div id='div-gpt-ad-1720771761394967-0' style='min-width: 300px; min-height: 250px;'>
-        <script>
-            googletag.cmd.push(function () { googletag.display('div-gpt-ad-1720771761394967-0'); });
-        </script>
-        <div> hello </div>
-    </div> -->
     <div class="App">
-        <div>
-            <a style="font-size: x-large;"="https://store.cocos.com/app/search?name=rustbody" target="_blank"
-                rel="noopener noreferrer">老王游戏主页4</a>
-        </div>
-        <div>
-            <div>
-                <a href="https://store.cocos.com/app/detail/6398">
-                    <img src="https://download.cocos.com/CocosStore/resource/fbcc493a35e1481197917a4d7ecdf4e8/fbcc493a35e1481197917a4d7ecdf4e8.png"
-                        target="_blank" class="App-logo">
-                </a>
-            </div>
-        </div>
-        <div>
-            <a class="App-link" href="https://store.cocos.com/app/detail/4827" target="_blank">
-                <img src="https://download.cocos.com/CocosStore/icon/1cafd590422d4bcd9cfc41a8662b647f/1cafd590422d4bcd9cfc41a8662b647f.png"
-                    target="_blank" class="App-logo">
+        <header class="App-header">
+            <h1 class="App-title">演示大厅</h1>
+            <p class="App-subtitle">点击下方卡片，立即开始游戏</p>
+        </header>
+
+        <main class="Game-grid">
+
+            <a class="Game-card" href="./ylgy/">
+                <div class="Game-icon">🐑</div>
+                <div class="Game-name">羊了个羊</div>
             </a>
 
-        </div>
-        <div>
-            <a class="App-link" href="https://store.cocos.com/app/detail/4685" target="_blank">
-                <img src="https://download.cocos.com/CocosStore/icon/c57703e7ffd74baf9fddf79cbb81dd1c/c57703e7ffd74baf9fddf79cbb81dd1c.png"
-                    target="_blank" class="App-logo">
+            <a class="Game-card" href="./nutbolts/">
+                <div class="Game-icon">🔩</div>
+                <div class="Game-name">螺丝玻璃谜题 (nutbolts)</div>
             </a>
-        </div>
 
-        <div>
-            <a class="App-link" href="https://store.cocos.com/app/detail/5677" target="_blank">
-                <img src="https://download.cocos.com/CocosStore/resource/6d8997e91fed4474b7282544f809cf71/6d8997e91fed4474b7282544f809cf71.png"
-                    target="_blank" class="App-logo">
+            <a class="Game-card" href="./nutsandbolts/">
+                <div class="Game-icon">🔧</div>
+                <div class="Game-name">螺帽与螺栓 (nutsandbolts)</div>
             </a>
-        </div>
 
+            <a class="Game-card" href="./sandblast/">
+                <div class="Game-icon">⏳</div>
+                <div class="Game-name">沙子方块 (sandblast)</div>
+            </a>
 
+            <a class="Game-card" href="./castledefense/">
+                <div class="Game-icon">🏰</div>
+                <div class="Game-name">城堡防御 (castledefense)</div>
+            </a>
 
+            <a class="Game-card" href="./crosscolor/">
+                <div class="Game-icon">🎨</div>
+                <div class="Game-name">交叉色彩 (crosscolor)</div>
+            </a>
+
+            <a class="Game-card" href="./jumptojump/">
+                <div class="Game-icon">🏃</div>
+                <div class="Game-name">跳一跳 (jumptojump)</div>
+            </a>
+
+            <a class="Game-card" href="./luosiding/">
+                <div class="Game-icon">⚙️</div>
+                <div class="Game-name">螺丝钉 (luosiding)</div>
+            </a>
+
+            <a class="Game-card" href="./waves/">
+                <div class="Game-icon">🌊</div>
+                <div class="Game-name">波浪冲击 (waves)</div>
+            </a>
+
+        </main>
     </div>
 </body>
 
