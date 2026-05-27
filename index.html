@@ -16,7 +16,7 @@
                 sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            background-color: #121212; /* 换成酷炫的暗黑背景，适合游戏 */
+            background-color: #121212;
             color: #ffffff;
         }
 
@@ -66,9 +66,9 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            cursor: pointer; /* 鼠标变成手型 */
         }
 
-        /* 鼠标悬停动效 */
         .Game-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 15px rgba(255, 75, 43, 0.2);
@@ -76,15 +76,65 @@
             background-color: #252525;
         }
 
-        .Game-icon {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
+        .Game-icon { font-size: 2.5rem; margin-bottom: 15px; }
+        .Game-name { font-size: 1.2rem; font-weight: bold; }
+
+        /* ======================================================== */
+        /* 【全新加入】：独立游戏全屏运行容器与 Loading 动画          */
+        /* ======================================================== */
+        
+        /* 1. 游戏外层舞台 */
+        #Game-stage {
+            display: none; /* 默认隐藏 */
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-color: #000000;
+            z-index: 9999;
         }
 
-        .Game-name {
-            font-size: 1.2rem;
-            font-weight: bold;
+        /* 2. 内嵌游戏的核心组件 */
+        #Game-frame {
+            width: 100%; height: 100%; border: none;
+            display: block;
         }
+
+        /* 3. 关闭游戏按钮 */
+        .Close-game-btn {
+            position: absolute; top: 15px; right: 15px;
+            width: 40px; height: 40px; border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #fff; border: none; font-size: 1.5rem;
+            cursor: pointer; z-index: 10001; transition: background 0.2s;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .Close-game-btn:hover { background-color: rgba(255, 65, 108, 0.8); }
+
+        /* 4. 全屏加载动画遮罩层 */
+        #Loading-screen {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #121212;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            z-index: 10000;
+        }
+
+        /* 5. 炫酷的发光 Loading 环 */
+        .Spinner {
+            width: 50px; height: 50px;
+            border: 5px solid #222;
+            border-top: 5px solid #ff4b2b;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            box-shadow: 0 0 15px rgba(255, 75, 43, 0.5);
+        }
+
+        .Loading-text {
+            margin-top: 20px; color: #ff4b2b; font-weight: bold;
+            letter-spacing: 2px; font-size: 1.1rem;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
 
         /* 手机端适配调整 */
         @media (max-width: 480px) {
@@ -99,59 +149,109 @@
 <body>
     <div class="App">
         <header class="App-header">
-            <h1 class="App-title">演示大厅</h1>
+            <h1 class="App-title">大厅</h1>
             <p class="App-subtitle">点击下方卡片，立即开始游戏</p>
         </header>
 
         <main class="Game-grid">
 
-            <a class="Game-card" href="./ylgy/">
+            <div class="Game-card" onclick="playGame('./ylgy/')">
                 <div class="Game-icon">🐑</div>
                 <div class="Game-name">羊了个羊</div>
-            </a>
+            </div>
 
-            <a class="Game-card" href="./nutbolts/">
+            <div class="Game-card" onclick="playGame('./nutbolts/')">
                 <div class="Game-icon">🔩</div>
-                <div class="Game-name">螺丝玻璃谜题 (nutbolts)</div>
-            </a>
+                <div class="Game-name">螺丝玻璃谜题</div>
+            </div>
 
-            <a class="Game-card" href="./nutsandbolts/">
+            <div class="Game-card" onclick="playGame('./nutsandbolts/')">
                 <div class="Game-icon">🔧</div>
-                <div class="Game-name">螺帽与螺栓 (nutsandbolts)</div>
-            </a>
+                <div class="Game-name">螺帽与螺栓</div>
+            </div>
 
-            <a class="Game-card" href="./sandblast/">
+            <div class="Game-card" onclick="playGame('./sandblast/')">
                 <div class="Game-icon">⏳</div>
-                <div class="Game-name">沙子方块 (sandblast)</div>
-            </a>
+                <div class="Game-name">沙子方块</div>
+            </div>
 
-            <a class="Game-card" href="./castledefense/">
+            <div class="Game-card" onclick="playGame('./castledefense/')">
                 <div class="Game-icon">🏰</div>
-                <div class="Game-name">城堡防御 (castledefense)</div>
-            </a>
+                <div class="Game-name">城堡防御</div>
+            </div>
 
-            <a class="Game-card" href="./crosscolor/">
+
+
+            <div class="Game-card" onclick="playGame('./crosscolor/')">
                 <div class="Game-icon">🎨</div>
-                <div class="Game-name">交叉色彩 (crosscolor)</div>
-            </a>
+                <div class="Game-name">交叉色彩</div>
+            </div>
 
-            <a class="Game-card" href="./jumptojump/">
+            <div class="Game-card" onclick="playGame('./jumptojump/')">
                 <div class="Game-icon">🏃</div>
-                <div class="Game-name">跳一跳 (jumptojump)</div>
-            </a>
+                <div class="Game-name">跳一跳</div>
+            </div>
 
-            <a class="Game-card" href="./luosiding/">
+            <div class="Game-card" onclick="playGame('./luosiding/')">
                 <div class="Game-icon">⚙️</div>
-                <div class="Game-name">螺丝钉 (luosiding)</div>
-            </a>
+                <div class="Game-name">螺丝钉</div>
+            </div>
 
-            <a class="Game-card" href="./waves/">
+            <div class="Game-card" onclick="playGame('./waves/')">
                 <div class="Game-icon">🌊</div>
-                <div class="Game-name">波浪冲击 (waves)</div>
-            </a>
+                <div class="Game-name">波浪冲击</div>
+            </div>
+
+        
 
         </main>
     </div>
+
+    <div id="Game-stage">
+        <button class="Close-game-btn" onclick="closeGame()">×</button>
+        
+        <div id="Loading-screen">
+            <div class="Spinner"></div>
+            <div class="Loading-text">游戏大关系配置载入中...</div>
+        </div>
+
+        <iframe id="Game-frame" src="" scrolling="no"></iframe>
+    </div>
+
+    <script>
+        const gameStage = document.getElementById('Game-stage');
+        const gameFrame = document.getElementById('Game-frame');
+        const loadingScreen = document.getElementById('Loading-screen');
+
+        // 1. 点击卡片启动游戏
+        function playGame(gameUrl) {
+            // 先拉起大舞台，展示 Loading 画面
+            gameStage.style.display = 'block';
+            loadingScreen.style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // 锁死主页滚动条
+
+            // 让 iframe 在后台悄悄加载游戏资源
+            gameFrame.src = gameUrl;
+        }
+
+        // 2. 核心：监听 iframe，当游戏核心基础资源加载完毕后触发
+        gameFrame.onload = function() {
+            // 确保不是空地址触发的 onload
+            if (gameFrame.src && !gameFrame.src.endsWith('empty')) {
+                // 延迟 300 毫秒淡化或直接隐藏 Loading 动画，体感更丝滑
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                }, 300);
+            }
+        };
+
+        // 3. 点击右上角 退出游戏，释放内存返回大厅
+        function closeGame() {
+            gameStage.style.display = 'none';
+            gameFrame.src = ''; // 清空 iframe 地址，让游戏声音和画面彻底停止
+            document.body.style.overflow = 'auto'; // 恢复大厅滚动
+        }
+    </script>
 </body>
 
 </html>
