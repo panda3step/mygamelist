@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - 游戏迷路了</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            text-align: center;
+            padding: 15% 5% 5% 5%;
+            margin: 0;
+        }
+        .error-code {
+            font-size: 6rem;
+            font-weight: bold;
+            margin: 0;
+            background: linear-gradient(45deg, #ff416c, #ff4b2b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .error-message {
+            font-size: 1.5rem;
+            color: #888;
+            margin: 20px 0 40px 0;
+        }
+        .btn-back {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(45deg, #ff416c, #ff4b2b);
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 25px;
+            box-shadow: 0 4px 15px rgba(255, 75, 43, 0.4);
+            transition: transform 0.2s;
+        }
+        .btn-back:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="error-code">404</div>
+    <div class="error-message">抱歉，你访问的游戏关卡不存在或已被删除！</div>
+    <a href="/" class="btn-back">返回游戏大厅</a>
+</body>
+</html>
