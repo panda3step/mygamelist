@@ -1,9 +1,9 @@
 const cacheName = "DefaultCompany-FindCow-1.0";
 const contentToCache = [
-    "Build/testpublish.loader.js",
-    "Build/testpublish.framework.js.br",
-    "Build/testpublish.data.br",
-    "Build/testpublish.wasm.br",
+    "Build/findcow.loader.js",
+    "Build/findcow.framework.js.gz",
+    "Build/findcow.data.gz",
+    "Build/findcow.wasm.gz",
     "TemplateData/style.css"
 
 ];
