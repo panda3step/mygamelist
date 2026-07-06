@@ -1,9 +1,9 @@
-const cacheName = "DefaultCompany-FindCow-1.0";
+const cacheName = "DefaultCompany-FindPanda-1.0";
 const contentToCache = [
-    "Build/findpanda6.loader.js",
-    "Build/findpanda6.framework.js.br",
-    "Build/findpanda6.data.br",
-    "Build/findpanda6.wasm.br",
+    "Build/findpanda7.loader.js",
+    "Build/findpanda7.framework.js.br",
+    "Build/findpanda7.data.br",
+    "Build/findpanda7.wasm.br",
     "TemplateData/style.css"
 
 ];

@@ -1,6 +1,6 @@
 {
-    "name": "FindCow",
-    "short_name": "FindCow",
+    "name": "FindPanda",
+    "short_name": "FindPanda",
     "start_url": "index.html",
     "display": "fullscreen",
     "background_color": "#231F20",
