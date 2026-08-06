@@ -66,7 +66,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            cursor: pointer; /* 鼠标变成手型 */
+            cursor: pointer;
         }
 
         .Game-card:hover {
@@ -79,26 +79,110 @@
         .Game-icon { font-size: 2.5rem; margin-bottom: 15px; }
         .Game-name { font-size: 1.2rem; font-weight: bold; }
 
-        /* ======================================================== */
-        /* 【全新加入】：独立游戏全屏运行容器与 Loading 动画          */
-        /* ======================================================== */
-        
-        /* 1. 游戏外层舞台 */
+        /* ===================== 游戏舞台 ===================== */
         #Game-stage {
-            display: none; /* 默认隐藏 */
+            display: none;
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
             background-color: #000000;
             z-index: 9999;
         }
 
-        /* 2. 内嵌游戏的核心组件 */
+        /* 侧边栏容器 */
+        .Game-sidebar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 160px;
+            background: #161616;
+            border-right: 1px solid #2a2a2a;
+            padding:12px 8px;
+            overflow-y: auto;
+            transition: transform 0.3s ease;
+            z-index: 10002;
+        }
+        /* 移动端收起状态 */
+        .Game-sidebar.collapsed{
+            transform: translateX(-100%);
+        }
+
+        .Sidebar-title{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            padding:8px 4px;
+            font-size:14px;
+            color:#aaa;
+            border-bottom:1px solid #2a2a2a;
+            margin-bottom:10px;
+        }
+        .Sidebar-close{
+            background:none;
+            border:none;
+            color:#888;
+            cursor:pointer;
+            font-size:18px;
+        }
+        .Sidebar-game-item{
+            display:flex;
+            align-items:center;
+            gap:8px;
+            padding:10px 8px;
+            border-radius:8px;
+            cursor:pointer;
+            transition:0.2s;
+            margin-bottom:4px;
+        }
+        .Sidebar-game-item:hover{
+            background:#222;
+        }
+        .Sidebar-game-item.active{
+            background:#2c191c;
+            border:1px solid #ff4b2b;
+        }
+        .Sidebar-icon{
+            font-size:22px;
+        }
+        .Sidebar-text{
+            font-size:13px;
+            white-space:nowrap;
+            overflow:hidden;
+            text-overflow:ellipsis;
+        }
+
+        /* 侧边栏呼出按钮（手机显示） */
+        .Sidebar-toggle-btn{
+            display:none;
+            position:absolute;
+            top:15px;
+            left:15px;
+            width:40px;
+            height:40px;
+            border-radius:50%;
+            background-color:rgba(255,255,255,0.2);
+            color:#fff;
+            border:none;
+            font-size:20px;
+            z-index:10003;
+            cursor:pointer;
+        }
+        .Sidebar-toggle-btn:hover{
+            background:rgba(255, 65, 108, 0.8);
+        }
+
+        /* 游戏主体区域 */
+        .Game-main-wrap{
+            width:100%;
+            height:100%;
+            position:relative;
+        }
+
         #Game-frame {
             width: 100%; height: 100%; border: none;
             display: block;
         }
 
-        /* 3. 关闭游戏按钮 */
         .Close-game-btn {
             position: absolute; top: 15px; right: 15px;
             width: 40px; height: 40px; border-radius: 50%;
@@ -109,15 +193,14 @@
         }
         .Close-game-btn:hover { background-color: rgba(255, 65, 108, 0.8); }
 
-        /* 4. 全屏加载动画遮罩层 */
         #Loading-screen {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background-color: #121212;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             z-index: 10000;
+            display:none;
         }
 
-        /* 5. 炫酷的发光 Loading 环 */
         .Spinner {
             width: 50px; height: 50px;
             border: 5px solid #222;
@@ -136,7 +219,19 @@
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         @keyframes pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
 
-        /* 手机端适配调整 */
+        /* ==========响应式规则========== */
+        @media (max-width: 768px) {
+            .Game-sidebar{
+                transform: translateX(-100%);
+            }
+            .Game-sidebar.open{
+                transform: translateX(0);
+            }
+            .Sidebar-toggle-btn{
+                display:block;
+            }
+        }
+
         @media (max-width: 480px) {
             .App-title { font-size: 2rem; }
             .Game-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; }
@@ -154,105 +249,169 @@
         </header>
 
         <main class="Game-grid">
+             <div class="Game-card" onclick="playGame('./findpanda/')" data-url="./findpanda/" data-icon="🐼" data-name="FindPanda by Unity">
+                <div class="Game-icon">🐼</div>
+                <div class="Game-name">FindPanda by Unity</div>
+            </div>
 
-            <div class="Game-card" onclick="playGame('./ylgy/')">
+            <div class="Game-card" onclick="playGame('./ylgy/')" data-url="./ylgy/" data-icon="🐑" data-name="羊了个羊">
                 <div class="Game-icon">🐑</div>
                 <div class="Game-name">羊了个羊</div>
             </div>
 
-            <div class="Game-card" onclick="playGame('./nutbolts/')">
+            <div class="Game-card" onclick="playGame('./nutbolts/')" data-url="./nutbolts/" data-icon="🔩" data-name="螺丝玻璃谜题">
                 <div class="Game-icon">🔩</div>
                 <div class="Game-name">螺丝玻璃谜题</div>
             </div>
 
-            <div class="Game-card" onclick="playGame('./nutsandbolts/')">
+            <div class="Game-card" onclick="playGame('./nutsandbolts/')" data-url="./nutsandbolts/" data-icon="🔧" data-name="螺帽与螺栓">
                 <div class="Game-icon">🔧</div>
                 <div class="Game-name">螺帽与螺栓</div>
             </div>
 
-            <div class="Game-card" onclick="playGame('./sandblast/')">
+            <div class="Game-card" onclick="playGame('./sandblast/')" data-url="./sandblast/" data-icon="⏳" data-name="沙子方块">
                 <div class="Game-icon">⏳</div>
                 <div class="Game-name">沙子方块</div>
             </div>
 
-            <div class="Game-card" onclick="playGame('./castledefense/')">
+            <div class="Game-card" onclick="playGame('./castledefense/')" data-url="./castledefense/" data-icon="🏰" data-name="城堡防御">
                 <div class="Game-icon">🏰</div>
                 <div class="Game-name">城堡防御</div>
             </div>
 
-
-
-            <div class="Game-card" onclick="playGame('./crosscolor/')">
+            <div class="Game-card" onclick="playGame('./crosscolor/')" data-url="./crosscolor/" data-icon="🎨" data-name="交叉色彩">
                 <div class="Game-icon">🎨</div>
                 <div class="Game-name">交叉色彩</div>
             </div>
 
-            <div class="Game-card" onclick="playGame('./jumptojump/')">
+            <div class="Game-card" onclick="playGame('./jumptojump/')" data-url="./jumptojump/" data-icon="🏃" data-name="跳一跳">
                 <div class="Game-icon">🏃</div>
                 <div class="Game-name">跳一跳</div>
             </div>
 
-            <div class="Game-card" onclick="playGame('./luosiding/')">
+            <div class="Game-card" onclick="playGame('./luosiding/')" data-url="./luosiding/" data-icon="⚙️" data-name="螺丝钉">
                 <div class="Game-icon">⚙️</div>
                 <div class="Game-name">螺丝钉</div>
             </div>
 
-            <div class="Game-card" onclick="playGame('./waves/')">
+            <div class="Game-card" onclick="playGame('./waves/')" data-url="./waves/" data-icon="🌊" data-name="波浪冲击">
                 <div class="Game-icon">🌊</div>
                 <div class="Game-name">波浪冲击</div>
             </div>
-
-            <div class="Game-card" onclick="playGame('./findpanda/')">
-                <div class="Game-icon">🐼</div>
-                <div class="Game-name">FindPanda by Unity</div>
-            </div>
-        
         </main>
     </div>
 
     <div id="Game-stage">
-        <button class="Close-game-btn" onclick="closeGame()">×</button>
-        
-        <div id="Loading-screen">
-            <div class="Spinner"></div>
-            <div class="Loading-text">游戏大关系配置载入中...</div>
+        <!-- 移动端侧边呼出按钮 -->
+        <button class="Sidebar-toggle-btn" onclick="toggleSidebar()">☰</button>
+
+        <!-- 左侧游戏切换侧边栏 -->
+        <div class="Game-sidebar" id="sidebarBox">
+            <div class="Sidebar-title">
+                <span>游戏列表</span>
+                <button class="Sidebar-close" onclick="closeSidebar()">✕</button>
+            </div>
+            <div id="sidebarList"></div>
         </div>
 
-        <iframe id="Game-frame" src="" scrolling="no"></iframe>
+        <!-- 游戏主区域 -->
+        <div class="Game-main-wrap">
+            <button class="Close-game-btn" onclick="closeGame()">×</button>
+            <div id="Loading-screen">
+                <div class="Spinner"></div>
+                <div class="Loading-text">游戏资源载入中...</div>
+            </div>
+            <iframe id="Game-frame" src="" scrolling="no"></iframe>
+        </div>
     </div>
 
     <script>
         const gameStage = document.getElementById('Game-stage');
         const gameFrame = document.getElementById('Game-frame');
         const loadingScreen = document.getElementById('Loading-screen');
+        const sidebarList = document.getElementById('sidebarList');
+        const sidebarBox = document.getElementById('sidebarBox');
 
-        // 1. 点击卡片启动游戏
-        function playGame(gameUrl) {
-            // 先拉起大舞台，展示 Loading 画面
-            gameStage.style.display = 'block';
-            loadingScreen.style.display = 'flex';
-            document.body.style.overflow = 'hidden'; // 锁死主页滚动条
+        // 收集所有游戏数据
+        const gameCards = Array.from(document.querySelectorAll('.Game-card'));
+        const gameList = gameCards.map(card => ({
+            url: card.dataset.url,
+            icon: card.dataset.icon,
+            name: card.dataset.name
+        }));
 
-            // 让 iframe 在后台悄悄加载游戏资源
-            gameFrame.src = gameUrl;
+        let currentGameUrl = "";
+
+        // 渲染侧边栏列表
+        function renderSidebar(){
+            sidebarList.innerHTML = "";
+            gameList.forEach(game=>{
+                const div = document.createElement('div');
+                div.className = "Sidebar-game-item";
+                div.dataset.url = game.url;
+                div.innerHTML = `
+                    <span class="Sidebar-icon">${game.icon}</span>
+                    <span class="Sidebar-text">${game.name}</span>
+                `;
+                div.onclick = ()=> switchGame(game.url);
+                sidebarList.appendChild(div);
+            })
+        }
+        renderSidebar();
+
+        // 更新当前选中高亮
+        function updateActiveSidebar(){
+            document.querySelectorAll('.Sidebar-game-item').forEach(item=>{
+                if(item.dataset.url === currentGameUrl){
+                    item.classList.add('active');
+                }else{
+                    item.classList.remove('active');
+                }
+            })
         }
 
-        // 2. 核心：监听 iframe，当游戏核心基础资源加载完毕后触发
+        // 侧边栏开关
+        function toggleSidebar(){
+            sidebarBox.classList.toggle('open');
+        }
+        function closeSidebar(){
+            sidebarBox.classList.remove('open');
+        }
+
+        // 切换游戏（侧边栏点击调用）
+        function switchGame(gameUrl){
+            loadingScreen.style.display = 'flex';
+            gameFrame.src = gameUrl;
+            currentGameUrl = gameUrl;
+            updateActiveSidebar();
+        }
+
+        // 大厅卡片点击启动游戏
+        function playGame(gameUrl) {
+            gameStage.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            currentGameUrl = gameUrl;
+            loadingScreen.style.display = 'flex';
+            gameFrame.src = gameUrl;
+            updateActiveSidebar();
+        }
+
+        // iframe加载完成隐藏loading
         gameFrame.onload = function() {
-            // 确保不是空地址触发的 onload
-            if (gameFrame.src && !gameFrame.src.endsWith('empty')) {
-                // 延迟 300 毫秒淡化或直接隐藏 Loading 动画，体感更丝滑
+            if (gameFrame.src) {
                 setTimeout(() => {
                     loadingScreen.style.display = 'none';
                 }, 300);
             }
         };
 
-        // 3. 点击右上角 退出游戏，释放内存返回大厅
+        // 关闭游戏返回大厅
         function closeGame() {
             gameStage.style.display = 'none';
-            gameFrame.src = ''; // 清空 iframe 地址，让游戏声音和画面彻底停止
-            document.body.style.overflow = 'auto'; // 恢复大厅滚动
+            gameFrame.src = '';
+            currentGameUrl = "";
+            document.body.style.overflow = 'auto';
+            sidebarBox.classList.remove('open');
         }
     </script>
 </body>
