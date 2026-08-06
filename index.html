@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#000000">
-    <meta name="description" content="老王的游戏导航页">
+    <meta name="description" content="导航页">
     <title>老王游戏主页</title>
     <style>
         body {
@@ -79,13 +79,14 @@
         .Game-icon { font-size: 2.5rem; margin-bottom: 15px; }
         .Game-name { font-size: 1.2rem; font-weight: bold; }
 
-        /* ===================== 游戏舞台 ===================== */
+        /* ===================== 游戏舞台 修复点击遮挡 ===================== */
         #Game-stage {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
             background-color: #000000;
             z-index: 9999;
+            pointer-events: none;
         }
 
         /* 侧边栏容器 */
@@ -101,6 +102,7 @@
             overflow-y: auto;
             transition: transform 0.3s ease;
             z-index: 10002;
+            pointer-events: auto !important;
         }
         /* 移动端收起状态 */
         .Game-sidebar.collapsed{
@@ -123,6 +125,7 @@
             color:#888;
             cursor:pointer;
             font-size:18px;
+            pointer-events: auto !important;
         }
         .Sidebar-game-item{
             display:flex;
@@ -133,6 +136,7 @@
             cursor:pointer;
             transition:0.2s;
             margin-bottom:4px;
+            pointer-events: auto !important;
         }
         .Sidebar-game-item:hover{
             background:#222;
@@ -164,7 +168,8 @@
             color:#fff;
             border:none;
             font-size:20px;
-            z-index:10003;
+            z-index:10004 !important;
+            pointer-events:auto !important;
             cursor:pointer;
         }
         .Sidebar-toggle-btn:hover{
@@ -176,6 +181,7 @@
             width:100%;
             height:100%;
             position:relative;
+            pointer-events:auto;
         }
 
         #Game-frame {
@@ -190,6 +196,7 @@
             color: #fff; border: none; font-size: 1.5rem;
             cursor: pointer; z-index: 10001; transition: background 0.2s;
             display: flex; align-items: center; justify-content: center;
+            pointer-events:auto !important;
         }
         .Close-game-btn:hover { background-color: rgba(255, 65, 108, 0.8); }
 
@@ -199,6 +206,7 @@
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             z-index: 10000;
             display:none;
+            pointer-events:auto;
         }
 
         .Spinner {
@@ -249,15 +257,15 @@
         </header>
 
         <main class="Game-grid">
-             <div class="Game-card" onclick="playGame('./findpanda7/')" data-url="./findpanda7/" data-icon="🐼" data-name="FindPanda by Unity">
+             <div class="Game-card" onclick="playGame('./findpanda7/')" data-url="./findpanda7/" data-icon="🐼" data-name="找熊猫 by Unity 7">
                 <div class="Game-icon">🐼</div>
                 <div class="Game-name">找熊猫 by Unity 7</div>
             </div>
 
-            <!-- <div class="Game-card" onclick="playGame('./arrow7/')" data-url="./arrow7/" data-icon="➡️" data-name="找箭头">
+              <div class="Game-card" onclick="playGame('./Arrow7/')" data-url="./Arrow7/" data-icon="➡️" data-name="玩箭头 by Unity 7">
                 <div class="Game-icon">➡️</div>
-                <div class="Game-name">找箭头</div>
-            </div> -->
+                <div class="Game-name">玩箭头 by Unity 7</div>
+            </div>
 
             <div class="Game-card" onclick="playGame('./ylgy/')" data-url="./ylgy/" data-icon="🐑" data-name="羊了个羊">
                 <div class="Game-icon">🐑</div>
@@ -294,8 +302,9 @@
                 <div class="Game-name">跳一跳</div>
             </div>
 
-            <div class="Game-card" onclick="playGame('./luosiding/')" data-url="./luosiding/" data-icon="⚙️" data-name="螺丝钉">
-                <div class="Game-icon">⚙️</div>
+            <!-- 螺丝钉图标改为箭头➡️ -->
+            <div class="Game-card" onclick="playGame('./luosiding/')" data-url="./luosiding/" data-icon="➡️" data-name="螺丝钉">
+                <div class="Game-icon">➡️</div>
                 <div class="Game-name">螺丝钉</div>
             </div>
 
